@@ -1,0 +1,238 @@
+/* ===== Cores e fontes: mude aqui para mudar o site todo ===== */
+:root {
+  --lilac: #b976ff;        /* fundo principal */
+  --purple: #6208b7;       /* roxo da logo */
+  --pink: #e9bdf0;         /* rosinha do "ini" e das estrelas */
+  --white: #ffffff;
+  --paper: #fbf7ff;        /* fundo das seções claras */
+  --ink: #3a1466;          /* texto */
+
+  --font-body: "Quicksand", system-ui, sans-serif;
+  --font-serif: "Bodoni Moda", Georgia, serif;
+  --font-script: "Imperial Script", cursive;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.star { fill: currentColor; }
+
+/* ===== Hero ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--lilac);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.nav a { padding: 0.25rem 0; border-bottom: 2px solid transparent; transition: border-color 0.2s; }
+.nav a:hover { border-color: var(--white); }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem 1.25rem 4rem;
+}
+
+.logo {
+  width: clamp(180px, 34vw, 320px);
+  height: auto;
+  filter: drop-shadow(0 6px 0 rgba(58, 20, 102, 0.28));
+  animation: bob 4s ease-in-out infinite;
+}
+
+.wordmark {
+  display: flex;
+  align-items: baseline;
+  margin-top: 0.5rem;
+  font-size: clamp(3rem, 11vw, 6rem);
+  font-weight: 400;
+  line-height: 1.1;
+  text-shadow: 0 3px 0 rgba(58, 20, 102, 0.22);
+}
+
+.w-g {
+  font-family: var(--font-script);
+  font-size: 1.7em;
+  line-height: 0.6;
+  margin-right: -0.06em;
+}
+
+.w-raph { font-family: var(--font-serif); font-weight: 500; }
+
+.w-ini {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-variant: small-caps;
+  font-size: 0.9em;
+  margin-left: 0.04em;
+  color: var(--pink);
+}
+
+.tagline {
+  margin-top: 2.25rem;
+  max-width: 32rem;
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 0.75rem 1.75rem;
+  border: 2px solid var(--white);
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn:hover { transform: translateY(-3px); box-shadow: 0 5px 0 rgba(58, 20, 102, 0.28); }
+.btn-solid { background: var(--white); color: var(--purple); }
+.btn-ghost { color: var(--white); }
+
+/* ===== Estrelas do fundo ===== */
+.stars { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+.stars .star {
+  position: absolute;
+  color: var(--white);
+  animation: twinkle 6s ease-in-out infinite;
+}
+
+.stars .soft { color: var(--pink); opacity: 0.75; }
+
+.s1 { width: 24vw; height: 24vw; left: 2vw;   top: 6%;    transform: rotate(-12deg); }
+.s2 { width: 28vw; height: 28vw; left: -9vw;  top: 20%;   transform: rotate(8deg);   animation-delay: -2s; }
+.s3 { width: 16vw; height: 16vw; left: -3vw;  bottom: 8%; transform: rotate(-6deg);  animation-delay: -4s; }
+.s4 { width: 13vw; height: 13vw; left: -5vw;  bottom: -4%; transform: rotate(14deg); animation-delay: -1s; }
+.s5 { width: 62vw; height: 62vw; right: -24vw; top: -34vw; transform: rotate(20deg); animation: none; }
+.s6 { width: 10vw; height: 10vw; right: 4vw;  top: 34%;   transform: rotate(-10deg); animation-delay: -3s; }
+.s7 { width: 11vw; height: 11vw; right: 2vw;  top: 46%;   transform: rotate(6deg);   animation-delay: -5s; }
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateY(-12px) rotate(1.5deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { scale: 1; }
+  50%      { scale: 1.06; }
+}
+
+/* ===== Seções ===== */
+.section {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 5rem 1.25rem 1rem;
+  text-align: center;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 500;
+  color: var(--purple);
+  margin-bottom: 1.25rem;
+}
+
+.lead { max-width: 38rem; margin: 0 auto; font-size: 1.1rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.card {
+  background: var(--white);
+  border: 2px solid var(--purple);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 6px 0 var(--purple);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 0 var(--purple); }
+
+/* Troque a .thumb por uma <img> quando tiver as imagens dos projetos */
+.thumb {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  background: var(--lilac);
+  color: var(--white);
+}
+
+.thumb .star { width: 30%; height: 30%; }
+
+.card h3 { font-size: 1.15rem; color: var(--purple); padding: 1rem 1.25rem 0; }
+.card p  { padding: 0.25rem 1.25rem 1.25rem; }
+
+/* ===== Rodapé / contato ===== */
+.footer {
+  margin-top: 5rem;
+  padding: 4rem 1.25rem 2rem;
+  text-align: center;
+  background: var(--purple);
+  color: var(--white);
+}
+
+.footer h2 { color: var(--white); margin-bottom: 0; }
+.footer .btn-solid { color: var(--purple); }
+.copy { margin-top: 3rem; font-size: 0.9rem; opacity: 0.8; }
+
+/* ===== Celular ===== */
+@media (max-width: 640px) {
+  .s1 { width: 40vw; height: 40vw; }
+  .s2 { width: 46vw; height: 46vw; left: -20vw; }
+  .s3 { width: 26vw; height: 26vw; }
+  .s4 { width: 22vw; height: 22vw; }
+  .s5 { width: 90vw; height: 90vw; right: -45vw; top: -55vw; }
+  .s6 { width: 16vw; height: 16vw; }
+  .s7 { width: 18vw; height: 18vw; right: -4vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo, .stars .star { animation: none; }
+  html { scroll-behavior: auto; }
+}

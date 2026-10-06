@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphini · Portfólio</title>
+  <meta name="description" content="Portfólio Graphini.">
+  <meta name="theme-color" content="#b976ff">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400&family=Imperial+Script&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Estrela usada em todo o site: <svg class="star"><use href="#star"/></svg> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="star" viewBox="0 0 100 95">
+      <polygon points="50,0 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35"/>
+    </symbol>
+  </svg>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="stars" aria-hidden="true">
+      <svg class="star s1 soft"><use href="#star"/></svg>
+      <svg class="star s2"><use href="#star"/></svg>
+      <svg class="star s3 soft"><use href="#star"/></svg>
+      <svg class="star s4"><use href="#star"/></svg>
+      <svg class="star s5"><use href="#star"/></svg>
+      <svg class="star s6 soft"><use href="#star"/></svg>
+      <svg class="star s7"><use href="#star"/></svg>
+    </div>
+
+    <nav class="nav">
+      <a href="#sobre">Sobre</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="hero-content">
+      <img class="logo" src="assets/logo.png" alt="Mascote da Graphini" width="320" height="283">
+      <h1 class="wordmark" aria-label="Graphini">
+        <span class="w-g">G</span><span class="w-raph">raph</span><span class="w-ini">ini</span>
+      </h1>
+      <p class="tagline">Portfólio em construção ✦ em breve, muita coisa bonita por aqui</p>
+      <div class="actions">
+        <a class="btn btn-solid" href="#projetos">Ver projetos</a>
+        <a class="btn btn-ghost" href="#contato">Fale comigo</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== SOBRE ===== -->
+    <section id="sobre" class="section">
+      <h2>Sobre</h2>
+      <p class="lead">
+        Oi! Esse é o cantinho da Graphini. Escreva aqui um parágrafo curto
+        contando quem você é, o que você faz e o que te inspira.
+      </p>
+    </section>
+
+    <!-- ===== PROJETOS ===== -->
+    <section id="projetos" class="section">
+      <h2>Projetos</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="thumb"><svg class="star"><use href="#star"/></svg></div>
+          <h3>Projeto 01</h3>
+          <p>Descrição curtinha do projeto.</p>
+        </article>
+        <article class="card">
+          <div class="thumb"><svg class="star"><use href="#star"/></svg></div>
+          <h3>Projeto 02</h3>
+          <p>Descrição curtinha do projeto.</p>
+        </article>
+        <article class="card">
+          <div class="thumb"><svg class="star"><use href="#star"/></svg></div>
+          <h3>Projeto 03</h3>
+          <p>Descrição curtinha do projeto.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== CONTATO ===== -->
+  <footer id="contato" class="footer">
+    <h2>Vamos conversar?</h2>
+    <div class="actions">
+      <a class="btn btn-solid" href="mailto:seuemail@exemplo.com">E-mail</a>
+      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Behance</a>
+    </div>
+    <p class="copy">© 2026 Graphini</p>
+  </footer>
+
+</body>
+</html>
