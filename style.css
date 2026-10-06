@@ -384,7 +384,7 @@ h2 {
 .js .reveal.in { opacity: 1; transform: none; }
 
 /* Títulos que sobem palavra por palavra */
-.split .word { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; }
+.split .word { display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0 0.12em 0.12em; margin: 0 -0.12em; }
 .split .word > span {
   display: inline-block;
   transform: translateY(110%) rotate(6deg);
