@@ -11,8 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400&family=Imperial+Script&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
+<body id="topo">
 
   <!-- Estrela usada em todo o site: <svg class="star"><use href="#star"/></svg> -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -21,8 +22,27 @@
     </symbol>
   </svg>
 
-  <!-- ===== HERO ===== -->
+  <!-- Tela de carregamento -->
+  <div class="preloader" aria-hidden="true">
+    <img src="assets/logo.png" alt="" width="120" height="106">
+  </div>
+
+  <!-- Barra de progresso da rolagem + estrela que segue o mouse -->
+  <div class="progress" aria-hidden="true"></div>
+  <svg class="star cursor-star" aria-hidden="true"><use href="#star"/></svg>
+
+  <nav class="nav" aria-label="Principal">
+    <a class="nav-logo" href="#topo" aria-label="Início"><img src="assets/favicon.png" alt="" width="28" height="28"></a>
+    <a href="#sobre">Sobre</a>
+    <a href="#projetos">Projetos</a>
+    <a href="#trajetoria">Trajetória</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <!-- ===== HERO (fundo em shader WebGL) ===== -->
   <header class="hero">
+    <canvas class="shader" data-shader data-c1="#b976ff" data-c2="#9d5cf7" data-c3="#e8b4f6" aria-hidden="true"></canvas>
+
     <div class="stars" aria-hidden="true">
       <svg class="star s1 soft"><use href="#star"/></svg>
       <svg class="star s2"><use href="#star"/></svg>
@@ -33,68 +53,265 @@
       <svg class="star s7"><use href="#star"/></svg>
     </div>
 
-    <nav class="nav">
-      <a href="#sobre">Sobre</a>
-      <a href="#projetos">Projetos</a>
-      <a href="#contato">Contato</a>
-    </nav>
-
     <div class="hero-content">
-      <img class="logo" src="assets/logo.png" alt="Mascote da Graphini" width="320" height="283">
-      <h1 class="wordmark" aria-label="Graphini">
+      <div class="logo-wrap intro">
+        <img class="logo" src="assets/logo.png" alt="Mascote da Graphini" width="320" height="283">
+      </div>
+      <h1 class="wordmark intro" aria-label="Graphini">
         <span class="w-g">G</span><span class="w-raph">raph</span><span class="w-ini">ini</span>
       </h1>
-      <p class="tagline">Portfólio em construção ✦ em breve, muita coisa bonita por aqui</p>
-      <div class="actions">
-        <a class="btn btn-solid" href="#projetos">Ver projetos</a>
-        <a class="btn btn-ghost" href="#contato">Fale comigo</a>
+      <!-- Troque as palavras em data-words (separadas por |) -->
+      <p class="tagline intro">
+        Portfólio de <span class="scramble" data-words="design gráfico|ilustração|motion design|identidade visual">design gráfico</span>
+      </p>
+      <div class="actions intro">
+        <a class="btn btn-solid magnetic" href="#projetos">Ver projetos</a>
+        <a class="btn btn-ghost magnetic" href="#contato">Fale comigo</a>
       </div>
     </div>
+
+    <a class="scroll-hint" href="#sobre" aria-label="Rolar para baixo"><span></span></a>
   </header>
 
+  <!-- ===== FAIXA ROLANTE ===== -->
+  <div class="band" aria-hidden="true">
+    <div class="band-track" data-marquee>
+      <span>Branding</span><svg class="star"><use href="#star"/></svg>
+      <span>Ilustração</span><svg class="star"><use href="#star"/></svg>
+      <span>Motion</span><svg class="star"><use href="#star"/></svg>
+      <span>Social media</span><svg class="star"><use href="#star"/></svg>
+      <span>Tipografia</span><svg class="star"><use href="#star"/></svg>
+    </div>
+  </div>
+
   <main>
-    <!-- ===== SOBRE ===== -->
-    <section id="sobre" class="section">
-      <h2>Sobre</h2>
-      <p class="lead">
-        Oi! Esse é o cantinho da Graphini. Escreva aqui um parágrafo curto
-        contando quem você é, o que você faz e o que te inspira.
-      </p>
+    <!-- ===== SOBRE (Focus Reveal + contadores) ===== -->
+    <section id="sobre" class="block dark">
+      <div class="wrap center">
+        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Sobre</p>
+        <!-- Qualquer texto funciona aqui: cada palavra vira um alvo do foco -->
+        <h2 class="focus" data-focus>Design que entra em foco</h2>
+        <p class="focus-hint">Passe o mouse em uma palavra</p>
+
+        <p class="lead reveal">
+          Oi! Esse é o cantinho da Graphini. Escreva aqui um parágrafo curto
+          contando quem você é, o que você faz e o que te inspira.
+        </p>
+
+        <!-- Troque os números em data-count -->
+        <div class="stats">
+          <div class="stat reveal"><strong><span data-count="24">0</span>+</strong><span>projetos entregues</span></div>
+          <div class="stat reveal" style="--d:.1s"><strong><span data-count="3">0</span></strong><span>anos de experiência</span></div>
+          <div class="stat reveal" style="--d:.2s"><strong><span data-count="12">0</span></strong><span>clientes felizes</span></div>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== PROJETOS ===== -->
-    <section id="projetos" class="section">
-      <h2>Projetos</h2>
-      <div class="grid">
-        <article class="card">
-          <div class="thumb"><svg class="star"><use href="#star"/></svg></div>
-          <h3>Projeto 01</h3>
-          <p>Descrição curtinha do projeto.</p>
-        </article>
-        <article class="card">
-          <div class="thumb"><svg class="star"><use href="#star"/></svg></div>
-          <h3>Projeto 02</h3>
-          <p>Descrição curtinha do projeto.</p>
-        </article>
-        <article class="card">
-          <div class="thumb"><svg class="star"><use href="#star"/></svg></div>
-          <h3>Projeto 03</h3>
-          <p>Descrição curtinha do projeto.</p>
-        </article>
+    <!-- ===== DESTAQUES (Card Folder) ===== -->
+    <section id="destaques" class="block dark tight">
+      <div class="wrap center">
+        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Destaques</p>
+        <h2 class="split">Três trabalhos favoritos</h2>
+
+        <!-- Para usar uma imagem recortada (PNG sem fundo) troque o conteúdo de .folder-obj por <img src="..."> -->
+        <div class="folders">
+          <article class="folder f1 reveal" tabindex="0">
+            <div class="folder-back"></div>
+            <div class="folder-obj"><img src="assets/logo.png" alt=""></div>
+            <div class="folder-face">
+              <div class="folder-top"><span class="folder-num">01</span><span class="folder-arrow">↗</span></div>
+              <div><h3>Nome do projeto</h3><p>Uma frase curta sobre o que foi feito.</p></div>
+            </div>
+          </article>
+          <article class="folder f2 reveal" style="--d:.12s" tabindex="0">
+            <div class="folder-back"></div>
+            <div class="folder-obj"><svg class="star"><use href="#star"/></svg></div>
+            <div class="folder-face">
+              <div class="folder-top"><span class="folder-num">02</span><span class="folder-arrow">↗</span></div>
+              <div><h3>Nome do projeto</h3><p>Uma frase curta sobre o que foi feito.</p></div>
+            </div>
+          </article>
+          <article class="folder f3 reveal" style="--d:.24s" tabindex="0">
+            <div class="folder-back"></div>
+            <div class="folder-obj"><svg class="star"><use href="#star"/></svg></div>
+            <div class="folder-face">
+              <div class="folder-top"><span class="folder-num">03</span><span class="folder-arrow">↗</span></div>
+              <div><h3>Nome do projeto</h3><p>Uma frase curta sobre o que foi feito.</p></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJETOS (carrossel arrastável) ===== -->
+    <section id="projetos" class="block">
+      <div class="wrap">
+        <div class="head-row">
+          <div>
+            <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Projetos</p>
+            <h2 class="split">Trabalhos recentes</h2>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        COMO ADICIONAR UM TRABALHO:
+        1. Salve a imagem em assets/projetos/
+        2. Dentro de <div class="media ph ..."> coloque <img src="assets/projetos/arquivo.jpg" alt="descrição">
+           (o placeholder "Sua imagem aqui" some sozinho)
+        3. Troque a tag, o título e o ano. Para mais cards, copie um <article> inteiro.
+      -->
+      <div class="carousel" data-carousel>
+        <div class="carousel-track">
+          <article class="work-card tilt">
+            <div class="media ph c1" data-label="Sua imagem aqui"></div>
+            <div class="work-body"><span class="chip">Branding</span><h3>Projeto 01</h3><span class="year">2026</span></div>
+          </article>
+          <article class="work-card tilt">
+            <div class="media ph c2" data-label="Sua imagem aqui"></div>
+            <div class="work-body"><span class="chip">Ilustração</span><h3>Projeto 02</h3><span class="year">2026</span></div>
+          </article>
+          <article class="work-card tilt">
+            <div class="media ph c3" data-label="Sua imagem aqui"></div>
+            <div class="work-body"><span class="chip">Motion</span><h3>Projeto 03</h3><span class="year">2025</span></div>
+          </article>
+          <article class="work-card tilt">
+            <div class="media ph c4" data-label="Sua imagem aqui"></div>
+            <div class="work-body"><span class="chip">Social media</span><h3>Projeto 04</h3><span class="year">2025</span></div>
+          </article>
+          <article class="work-card tilt">
+            <div class="media ph c5" data-label="Sua imagem aqui"></div>
+            <div class="work-body"><span class="chip">Branding</span><h3>Projeto 05</h3><span class="year">2025</span></div>
+          </article>
+          <article class="work-card tilt">
+            <div class="media ph c6" data-label="Sua imagem aqui"></div>
+            <div class="work-body"><span class="chip">Ilustração</span><h3>Projeto 06</h3><span class="year">2024</span></div>
+          </article>
+        </div>
+        <div class="wrap carousel-ui">
+          <div class="carousel-bar"><i></i></div>
+          <button class="round-btn" data-prev aria-label="Anterior">←</button>
+          <button class="round-btn" data-next aria-label="Próximo">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GALERIA (duas esteiras infinitas) ===== -->
+    <section id="galeria" class="block tight">
+      <div class="wrap center">
+        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Galeria</p>
+        <h2 class="split">Um pouco de tudo</h2>
+      </div>
+
+      <!-- Mesma regra: coloque um <img> dentro de cada .media. Passe o mouse para pausar. -->
+      <div class="gallery">
+        <div class="gallery-row" data-marquee>
+          <div class="media ph c2" data-label="Imagem 01"></div>
+          <div class="media ph c5 wide" data-label="Imagem 02"></div>
+          <div class="media ph c1" data-label="Imagem 03"></div>
+          <div class="media ph c4" data-label="Imagem 04"></div>
+          <div class="media ph c3 wide" data-label="Imagem 05"></div>
+        </div>
+        <div class="gallery-row reverse" data-marquee>
+          <div class="media ph c6 wide" data-label="Imagem 06"></div>
+          <div class="media ph c3" data-label="Imagem 07"></div>
+          <div class="media ph c1" data-label="Imagem 08"></div>
+          <div class="media ph c5 wide" data-label="Imagem 09"></div>
+          <div class="media ph c2" data-label="Imagem 10"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== O QUE EU FAÇO (bento com luz que segue o mouse) ===== -->
+    <section id="servicos" class="block dark">
+      <div class="wrap center">
+        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> O que eu faço</p>
+        <h2 class="split">Do rabisco ao movimento</h2>
+
+        <div class="bento">
+          <article class="spot span-2 reveal">
+            <div class="demo swatches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <h3>Identidade visual</h3>
+            <p>Logos, paletas e sistemas visuais com personalidade.</p>
+          </article>
+          <article class="spot reveal" style="--d:.08s">
+            <div class="demo peek" aria-hidden="true"><img src="assets/logo.png" alt=""></div>
+            <h3>Ilustração</h3>
+            <p>Personagens e mascotes.</p>
+          </article>
+          <article class="spot reveal" style="--d:.16s">
+            <div class="demo bounce" aria-hidden="true"><i></i><b></b></div>
+            <h3>Motion design</h3>
+            <p>Animações que dão vida.</p>
+          </article>
+          <article class="spot reveal">
+            <div class="demo type" aria-hidden="true">Aa</div>
+            <h3>Tipografia</h3>
+            <p>Letras com intenção.</p>
+          </article>
+          <article class="spot span-2 reveal" style="--d:.08s">
+            <div class="demo tools" aria-hidden="true">
+              <div class="tools-track" data-marquee>
+                <span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>After Effects</span><span>Procreate</span><span>Blender</span>
+              </div>
+            </div>
+            <h3>Ferramentas</h3>
+            <p>Troque pela lista de programas que você usa.</p>
+          </article>
+          <article class="spot reveal" style="--d:.16s">
+            <div class="demo orbit" aria-hidden="true"><svg class="star"><use href="#star"/></svg><i></i><i></i></div>
+            <h3>Social media</h3>
+            <p>Posts que param o scroll.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRAJETÓRIA (linha do tempo que se desenha na rolagem) ===== -->
+    <section id="trajetoria" class="block">
+      <div class="wrap center">
+        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Trajetória</p>
+        <h2 class="split">Linha do tempo</h2>
+
+        <!-- Copie um <li> para adicionar mais um marco -->
+        <ol class="timeline" data-timeline>
+          <li class="tl-line" aria-hidden="true"><i></i></li>
+          <li class="tl-item">
+            <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
+            <div class="tl-card"><span class="chip">2023</span><h3>Onde tudo começou</h3><p>Conte aqui o primeiro passo: um curso, um primeiro desenho, um primeiro cliente.</p></div>
+          </li>
+          <li class="tl-item">
+            <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
+            <div class="tl-card"><span class="chip">2024</span><h3>Primeiros projetos</h3><p>Um marco importante da sua jornada entra aqui.</p></div>
+          </li>
+          <li class="tl-item">
+            <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
+            <div class="tl-card"><span class="chip">2025</span><h3>Crescendo</h3><p>Novas habilidades, novos clientes, novos desafios.</p></div>
+          </li>
+          <li class="tl-item">
+            <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
+            <div class="tl-card"><span class="chip">2026</span><h3>Nasce a Graphini</h3><p>O momento atual e o que vem pela frente.</p></div>
+          </li>
+        </ol>
       </div>
     </section>
   </main>
 
   <!-- ===== CONTATO ===== -->
   <footer id="contato" class="footer">
-    <h2>Vamos conversar?</h2>
-    <div class="actions">
-      <a class="btn btn-solid" href="mailto:seuemail@exemplo.com">E-mail</a>
-      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Instagram</a>
-      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Behance</a>
+    <canvas class="shader" data-shader data-c1="#6208b7" data-c2="#2d0a5c" data-c3="#b976ff" aria-hidden="true"></canvas>
+    <div class="wrap center footer-inner">
+      <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Contato</p>
+      <h2 class="giant split">Vamos conversar?</h2>
+      <div class="actions reveal">
+        <a class="btn btn-solid magnetic" href="mailto:seuemail@exemplo.com">E-mail</a>
+        <a class="btn btn-ghost magnetic" href="#" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-ghost magnetic" href="#" target="_blank" rel="noopener">Behance</a>
+      </div>
+      <p class="copy">© 2026 Graphini · <a href="#topo">voltar ao topo ↑</a></p>
     </div>
-    <p class="copy">© 2026 Graphini</p>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
