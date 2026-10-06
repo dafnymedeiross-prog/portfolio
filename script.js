@@ -1,4 +1,4 @@
-/* Graphini — animações e componentes (JavaScript puro, sem bibliotecas) */
+/* Fini — animações e componentes (JavaScript puro, sem bibliotecas) */
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
@@ -131,25 +131,61 @@
     });
   });
 
-  /* ---------- Carrossel: setas, barra de progresso e arrastar com o mouse ---------- */
+  /* ---------- Carrossel em looping: setas, barra de progresso e arrastar com o mouse ----------
+     Os cards são copiados uma vez antes e uma vez depois dos originais. Quando a rolagem
+     para em uma das cópias, pulamos (sem animação) para o card original igual — o usuário
+     não percebe e pode seguir para a esquerda ou para a direita sem fim. */
   $$('[data-carousel]').forEach(box => {
     const track = $('.carousel-track', box);
     const prev = $('[data-prev]', box), next = $('[data-next]', box), bar = $('.carousel-bar i', box);
+    const originals = [...track.children];
+    const count = originals.length;
+    if (!count) return;
+
+    const copy = el => {
+      const c = el.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      return c;
+    };
+    track.prepend(...originals.map(copy));
+    track.append(...originals.map(copy));
+
     const step = () => {
       const [a, b] = track.children;
       return b ? b.offsetLeft - a.offsetLeft : a.offsetWidth;
     };
-    const update = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      const p = max > 0 ? track.scrollLeft / max : 1;
-      bar.style.transform = `scaleX(${Math.max(0.08, p)})`;
-      prev.disabled = track.scrollLeft < 4;
-      next.disabled = track.scrollLeft > max - 4;
+    const setWidth = () => step() * count;
+
+    // Mantém a rolagem sempre dentro do conjunto do meio; devolve quanto pulou
+    const recenter = () => {
+      const w = setWidth();
+      let jump = 0;
+      if (track.scrollLeft < w * 0.5) jump = w;
+      else if (track.scrollLeft >= w * 1.5) jump = -w;
+      if (jump) track.scrollLeft += jump;
+      return jump;
     };
+
+    // A barra mostra em qual dos cards originais estamos
+    const update = () => {
+      const index = ((Math.round(track.scrollLeft / step()) % count) + count) % count;
+      bar.style.transform = `scaleX(${(index + 1) / count})`;
+    };
+
+    let idle;
+    const settled = () => { if (!track.classList.contains('dragging')) recenter(); };
+    track.addEventListener('scroll', () => {
+      update();
+      clearTimeout(idle);
+      idle = setTimeout(settled, 140);
+    }, { passive: true });
+    track.addEventListener('scrollend', settled);
+
     prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
     next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
-    track.addEventListener('scroll', update, { passive: true });
-    addEventListener('resize', update);
+    addEventListener('resize', () => { recenter(); update(); });
+
+    track.scrollLeft = setWidth();
     update();
 
     let down = false, moved = false, x0 = 0, s0 = 0;
@@ -161,7 +197,9 @@
       if (!down) return;
       const dx = e.clientX - x0;
       if (!moved && Math.abs(dx) > 6) { moved = true; track.classList.add('dragging'); }
-      if (moved) track.scrollLeft = s0 - dx;
+      if (!moved) return;
+      track.scrollLeft = s0 - dx;
+      s0 += recenter();   // arrastou até uma cópia: pula junto com o ponto de partida
     });
     addEventListener('pointerup', () => {
       if (!down) return;
@@ -170,7 +208,7 @@
       // Desliza até o card mais próximo antes de religar o "encaixe"
       const target = Math.round(track.scrollLeft / step()) * step();
       track.scrollTo({ left: target, behavior: 'smooth' });
-      setTimeout(() => track.classList.remove('dragging'), 450);
+      setTimeout(() => { track.classList.remove('dragging'); recenter(); }, 450);
     });
     track.addEventListener('dragstart', e => e.preventDefault());
   });
