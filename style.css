@@ -930,6 +930,7 @@ h2 {
 .footer .eyebrow { color: var(--pink); }
 .footer h2 { color: var(--white); }
 .giant { font-size: clamp(2.8rem, 11vw, 7.5rem); font-style: italic; }
+.contact-note { margin-top: 1.25rem; font-weight: 600; opacity: 0.9; }
 .copy { margin-top: 4rem; font-size: 0.9rem; opacity: 0.8; }
 .copy a { border-bottom: 1px solid currentColor; }
 
