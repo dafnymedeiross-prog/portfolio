@@ -123,12 +123,74 @@
     go(words.length - 1);
   });
 
-  /* ---------- Card Folder: toque abre/fecha (no computador é o hover) ---------- */
+  /* ---------- Card Folder: toque abre/fecha (no computador é o hover) ----------
+     Pasta com data-case abre o estudo de caso (<dialog>) em vez de só abrir/fechar. */
   $$('.folder').forEach(f => {
-    f.addEventListener('click', () => f.classList.toggle('open'));
+    const study = f.dataset.case && document.getElementById(f.dataset.case);
+    const act = () => {
+      if (study && study.showModal) { study.scrollTop = 0; study.showModal(); }
+      else f.classList.toggle('open');
+    };
+    f.addEventListener('click', act);
     f.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f.classList.toggle('open'); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(); }
     });
+  });
+  $$('[data-case-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
+
+  /* ---------- Galeria: cada pasta (.gal-tile) abre as fotos de um personagem ---------- */
+  $$('[data-gallery]').forEach(g => {
+    const dir = g.dataset.gallery;
+    const grid = $('.gal-grid', g), view = $('.gal-view', g);
+    const big = $('.gal-stage img', view), thumbs = $('.gal-thumbs', view);
+    let photos = [], name = '', at = 0, from = null;
+
+    const pick = i => {
+      at = (i + photos.length) % photos.length;
+      big.src = `${dir}${photos[at]}.webp`;
+      big.alt = `${name}, foto ${at + 1} de ${photos.length}`;
+      $$('button', thumbs).forEach((b, k) => b.classList.toggle('on', k === at));
+    };
+    const open = tile => {
+      from = tile;
+      photos = tile.dataset.photos.split(',');
+      name = tile.dataset.name;
+      $('h3', view).textContent = name;
+      $('.gal-from', view).textContent = tile.dataset.from;
+      thumbs.replaceChildren(...photos.map((id, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', `Foto ${i + 1}`);
+        b.innerHTML = `<img src="${dir}${id}-p.webp" alt="">`;
+        b.addEventListener('click', () => pick(i));
+        return b;
+      }));
+      thumbs.hidden = photos.length < 2;
+      pick(0);
+      grid.hidden = true;
+      view.hidden = false;
+      $('.gal-back', view).focus();
+    };
+    const back = () => {
+      if (view.hidden) return;
+      view.hidden = true;
+      grid.hidden = false;
+      from?.focus();
+    };
+
+    $$('.gal-tile', g).forEach(tile => {
+      const n = tile.dataset.photos.split(',').length;
+      $('.gal-tag i', tile).append(` · ${n} foto${n > 1 ? 's' : ''}`);
+      tile.addEventListener('click', () => open(tile));
+    });
+    $('.gal-back', view).addEventListener('click', back);
+    big.addEventListener('click', () => pick(at + 1));
+    g.addEventListener('keydown', e => {
+      if (view.hidden) return;
+      if (e.key === 'ArrowRight') pick(at + 1);
+      if (e.key === 'ArrowLeft') pick(at - 1);
+    });
+    g.closest('dialog')?.addEventListener('close', back);
   });
 
   /* ---------- Carrossel em looping: setas, barra de progresso e arrastar com o mouse ----------
@@ -406,4 +468,132 @@
     };
     requestAnimationFrame(loop);
   }
+})();
+
+/* ===== Sobre: carregando 1–100% + texto digitado =====
+   Cole no FINAL do script.js (é independente, tem o próprio escopo) */
+(() => {
+  // ⚡ VELOCIDADE (em milissegundos): mexa só nestes dois números
+  const TEMPO_CARREGANDO = 3500; // barra de 1% a 100%  (menor = mais rápido)
+  const TEMPO_DIGITANDO = 2500;  // texto inteiro sendo digitado (menor = mais rápido)
+
+  const start = () => {
+    const card = document.querySelector('[data-about-card]');
+    if (!card) return;
+    const text = card.querySelector('[data-typewriter]');
+    const pctEl = card.querySelector('[data-pct]');
+    const label = card.querySelector('[data-label]');
+    if (!text || !pctEl || !label) return;
+
+    const full = text.textContent.replace(/\s+/g, ' ').trim();
+    const chars = Array.from(full);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const setPct = n => { pctEl.textContent = n; card.style.setProperty('--p', n); };
+
+    // leitores de tela leem o texto inteiro; a digitação é só visual
+    text.setAttribute('aria-label', full);
+    const typed = document.createElement('span');
+    typed.setAttribute('aria-hidden', 'true');
+    const caret = document.createElement('span');
+    caret.className = 'about-caret';
+    caret.setAttribute('aria-hidden', 'true');
+
+    let skipped = false;
+    const finish = () => {
+      skipped = true;
+      setPct(100);
+      label.textContent = 'Sobre Fini carregado!';
+      typed.textContent = full;
+      caret.classList.add('off');
+      card.classList.remove('is-loading');
+      card.classList.add('is-done');
+    };
+
+    // movimento reduzido: mostra tudo pronto, sem animação
+    if (reduce) { text.replaceChildren(typed); finish(); return; }
+
+    const begin = () => {
+      text.style.minHeight = text.offsetHeight + 'px'; // evita a página "pular"
+      text.replaceChildren(typed, caret);
+      setPct(0);
+      label.textContent = 'Fini carregando...';
+
+      // uma paradinha no meio do caminho, igual instalador de CD
+      const marks = [[0, 0], [0.3, 40], [0.45, 44], [0.8, 92], [1, 100]];
+      const at = t => {
+        for (let i = 1; i < marks.length; i++) {
+          if (t <= marks[i][0]) {
+            const [t0, p0] = marks[i - 1], [t1, p1] = marks[i];
+            return p0 + (p1 - p0) * (t - t0) / (t1 - t0);
+          }
+        }
+        return 100;
+      };
+
+      const load = () => new Promise(resolve => {
+        const t0 = performance.now();
+        const tick = now => {
+          if (skipped) return resolve();
+          const t = Math.min(1, (now - t0) / TEMPO_CARREGANDO);
+          setPct(Math.max(1, Math.round(at(t))));
+          if (t < 1) requestAnimationFrame(tick); else resolve();
+        };
+        requestAnimationFrame(tick);
+      });
+
+      // o tempo total é fixo (TEMPO_DIGITANDO), não importa o tamanho do texto;
+      // pontuação "pesa" um pouquinho mais, só para dar um respiro
+      const type = () => new Promise(resolve => {
+        const weight = chars.map(ch => ('.!?'.includes(ch) ? 6 : ch === ',' ? 3 : 1));
+        const cum = [];
+        weight.reduce((acc, w, i) => (cum[i] = acc + w), 0);
+        const total = cum[cum.length - 1];
+        const t0 = performance.now();
+        let shown = 0;
+        const tick = now => {
+          if (skipped) return resolve();
+          const goal = Math.min(1, (now - t0) / TEMPO_DIGITANDO) * total;
+          let n = shown;
+          while (n < chars.length && cum[n] <= goal) n++;
+          if (n !== shown) { shown = n; typed.textContent = chars.slice(0, n).join(''); }
+          if (shown < chars.length) requestAnimationFrame(tick); else resolve();
+        };
+        requestAnimationFrame(tick);
+      });
+
+      const run = async () => {
+        if (skipped) return;
+        card.classList.add('is-loading');
+        await sleep(500); // espera o card aparecer antes de a barra andar
+        await load();
+        if (skipped) return;
+        setPct(100);
+        label.textContent = 'Sobre Fini carregado!';
+        card.classList.remove('is-loading');
+        await sleep(450);
+        await type();
+        if (skipped) return;
+        card.classList.add('is-done');
+        setTimeout(() => caret.classList.add('off'), 1500);
+      };
+
+      // começa quando a seção aparece na tela
+      const io = new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        run();
+      }, { threshold: 0.5 });
+      io.observe(card);
+
+      // toque/clique pula a animação
+      card.addEventListener('click', () => { io.disconnect(); finish(); });
+    };
+
+    // espera as fontes carregarem para medir a altura certa do texto
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(begin);
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();

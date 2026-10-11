@@ -1,0 +1,4 @@
+# Arquivos de trabalho: originais das imagens e referências. O site usa as cópias em assets/.
+# A barra no começo limita à raiz do projeto (sem ela, assets/projetos/ também seria ignorada).
+/Projetos/
+/Referencia/

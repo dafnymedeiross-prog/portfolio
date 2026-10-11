@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fini · Portfólio de design gráfico</title>
-  <meta name="description" content="Fini: portfólio de design gráfico.">
+  <meta name="description" content="Portfólio da Fini (Dafny), estudante de Design Gráfico: embalagem, identidade visual, UI/UX e impressão 3D.">
   <meta name="theme-color" content="#05010d">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Fini">
   <meta property="og:title" content="Fini · Portfólio de design gráfico">
-  <meta property="og:description" content="Portfólio de design gráfico.">
+  <meta property="og:description" content="Embalagem, identidade visual, UI/UX e impressão 3D, por uma estudante de Design Gráfico.">
   <meta property="og:url" content="https://dafnymedeiross-prog.github.io/portfolio/">
   <meta property="og:image" content="https://dafnymedeiross-prog.github.io/portfolio/assets/og.jpg">
   <meta property="og:image:type" content="image/jpeg">
@@ -92,16 +92,16 @@
   <!-- ===== FAIXA ROLANTE ===== -->
   <div class="band" aria-hidden="true">
     <div class="band-track" data-marquee>
-      <span>Branding</span><svg class="star"><use href="#star"/></svg>
       <span>Design gráfico</span><svg class="star"><use href="#star"/></svg>
       <span>Identidade visual</span><svg class="star"><use href="#star"/></svg>
-      <span>Social media</span><svg class="star"><use href="#star"/></svg>
-      <span>Tipografia</span><svg class="star"><use href="#star"/></svg>
+      <span>Impressão 3D</span><svg class="star"><use href="#star"/></svg>
+      <span>Embalagem</span><svg class="star"><use href="#star"/></svg>
+      <span>UI/UX</span><svg class="star"><use href="#star"/></svg>
     </div>
   </div>
 
   <main>
-    <!-- ===== SOBRE (Focus Reveal + contadores) ===== -->
+    <!-- ===== SOBRE (Focus Reveal + carregando e texto digitado) ===== -->
     <section id="sobre" class="block dark">
       <div class="wrap center">
         <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Sobre</p>
@@ -109,50 +109,56 @@
         <h2 class="focus" data-focus>Design que entra em foco</h2>
         <p class="focus-hint">Passe o mouse em uma palavra</p>
 
-        <p class="lead reveal">
-          Oi! Esse é o cantinho da Fini. Escreva aqui um parágrafo curto
-          contando quem você é, o que você faz e o que te inspira.
-        </p>
+        <div class="about-card reveal" data-about-card style="--p:100">
+          <div class="about-load" aria-hidden="true">
+            <img class="about-disc" src="assets/fini-dvd-y2k.svg" alt="" width="84" height="84">
+            <div class="about-status">
+              <span class="about-label" data-label>Fini carregando...</span>
+              <span class="about-pct"><span data-pct>100</span>%</span>
+              <span class="about-bar"><i></i></span>
+            </div>
+          </div>
 
-        <!-- Troque os números em data-count -->
-        <div class="stats">
-          <div class="stat reveal"><strong><span data-count="24">0</span>+</strong><span>projetos entregues</span></div>
-          <div class="stat reveal" style="--d:.1s"><strong><span data-count="3">0</span></strong><span>anos de experiência</span></div>
-          <div class="stat reveal" style="--d:.2s"><strong><span data-count="12">0</span></strong><span>clientes felizes</span></div>
+          <!-- Este é o texto final. Pode editar à vontade: o JS lê daqui e digita na tela. -->
+          <p class="lead about-text" data-typewriter>
+            Estudante de Design Gráfico, primeira edição aos 11 anos. Tenho uma mini gráfica,
+            brinco com impressões 3D e estou mergulhando em UI/UX. Me inspira gente com a
+            própria cara, e meu passatempo favorito é dar um up em tudo que é genérico ✨
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- ===== DESTAQUES (Card Folder) ===== -->
+    <!-- ===== TRABALHOS (Card Folder: cada pasta abre um estudo de caso) ===== -->
     <section id="destaques" class="block dark tight">
       <div class="wrap center">
-        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Destaques</p>
-        <h2 class="split">Três trabalhos favoritos</h2>
+        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Trabalhos</p>
+        <h2 class="split">Três trabalhos</h2>
 
-        <!-- Para usar uma imagem recortada (PNG sem fundo) troque o conteúdo de .folder-obj por <img src="..."> -->
         <div class="folders">
-          <article class="folder f1 reveal" tabindex="0">
+          <!-- data-case = id do estudo de caso que abre ao clicar (os <dialog> ficam no fim do <main>) -->
+          <article class="folder f1 reveal" tabindex="0" role="button" aria-haspopup="dialog" data-case="case-muky">
             <div class="folder-back"></div>
-            <div class="folder-obj"><img src="assets/logo.svg" alt=""></div>
+            <div class="folder-obj"><img class="shot" src="assets/projetos/muky-capa.webp" alt="" width="640" height="684" loading="lazy"></div>
             <div class="folder-face">
               <div class="folder-top"><span class="folder-num">01</span><span class="folder-arrow">↗</span></div>
-              <div><h3>Nome do projeto</h3><p>Uma frase curta sobre o que foi feito.</p></div>
+              <div><h3>Muky Redesign</h3><p>Redesign do rótulo sabor morango. Clique para ver o estudo de caso.</p></div>
             </div>
           </article>
-          <article class="folder f2 reveal" style="--d:.12s" tabindex="0">
+          <article class="folder f2 reveal" style="--d:.12s" tabindex="0" role="button" aria-haspopup="dialog" data-case="case-graphini-cat">
             <div class="folder-back"></div>
-            <div class="folder-obj"><svg class="star"><use href="#star"/></svg></div>
+            <div class="folder-obj"><img class="shot" src="assets/projetos/graphini-cat-capa.webp" alt="" width="530" height="494" loading="lazy"></div>
             <div class="folder-face">
               <div class="folder-top"><span class="folder-num">02</span><span class="folder-arrow">↗</span></div>
-              <div><h3>Nome do projeto</h3><p>Uma frase curta sobre o que foi feito.</p></div>
+              <div><h3>Graphini Cat</h3><p>Estudo de logo inspirado na minha gata Dixie. Clique para ver o estudo de caso.</p></div>
             </div>
           </article>
-          <article class="folder f3 reveal" style="--d:.24s" tabindex="0">
+          <article class="folder f3 reveal" style="--d:.24s" tabindex="0" role="button" aria-haspopup="dialog" data-case="case-3d">
             <div class="folder-back"></div>
-            <div class="folder-obj"><svg class="star"><use href="#star"/></svg></div>
+            <div class="folder-obj"><img class="shot" src="assets/projetos/3d/hornet-1-p.webp" alt="" width="360" height="640" loading="lazy"></div>
             <div class="folder-face">
               <div class="folder-top"><span class="folder-num">03</span><span class="folder-arrow">↗</span></div>
-              <div><h3>Nome do projeto</h3><p>Uma frase curta sobre o que foi feito.</p></div>
+              <div><h3>Impressões 3D</h3><p>Galeria de miniaturas impressas em 3D em 2026. Clique para abrir.</p></div>
             </div>
           </article>
         </div>
@@ -173,35 +179,22 @@
       <!--
         COMO ADICIONAR UM TRABALHO:
         1. Salve a imagem em assets/projetos/
-        2. Dentro de <div class="media ph ..."> coloque <img src="assets/projetos/arquivo.jpg" alt="descrição">
-           (o placeholder "Sua imagem aqui" some sozinho)
-        3. Troque a tag, o título e o ano. Para mais cards, copie um <article> inteiro.
+        2. Copie um <article> inteiro e troque o src e o alt do <img>
+        3. Troque a tag, o título e o ano.
       -->
       <div class="carousel" data-carousel>
         <div class="carousel-track">
           <article class="work-card tilt">
-            <div class="media ph c1" data-label="Sua imagem aqui"></div>
-            <div class="work-body"><span class="chip">Branding</span><h3>Projeto 01</h3><span class="year">2026</span></div>
+            <div class="media ph c1" data-label="Caixa Funko"><img src="assets/projetos/caixa-funko.webp" alt="Planificação da caixa de um Funko personalizado de casal, em roxo e amarelo" width="960" height="720" loading="lazy"></div>
+            <div class="work-body"><span class="chip">Embalagem</span><h3>Caixa Funko personalizada</h3><span class="year">2026</span></div>
           </article>
           <article class="work-card tilt">
-            <div class="media ph c2" data-label="Sua imagem aqui"></div>
-            <div class="work-body"><span class="chip">Identidade visual</span><h3>Projeto 02</h3><span class="year">2026</span></div>
+            <div class="media ph c2" data-label="MEOWorld"><img src="assets/projetos/meowworld.webp" alt="Tela de cadastro do aplicativo MEOWorld, em azul claro, com campos em formato de patinha" width="960" height="720" loading="lazy"></div>
+            <div class="work-body"><span class="chip">UI/UX</span><h3>MEOWorld</h3><span class="year">2025</span></div>
           </article>
           <article class="work-card tilt">
-            <div class="media ph c3" data-label="Sua imagem aqui"></div>
-            <div class="work-body"><span class="chip">Impressos</span><h3>Projeto 03</h3><span class="year">2025</span></div>
-          </article>
-          <article class="work-card tilt">
-            <div class="media ph c4" data-label="Sua imagem aqui"></div>
-            <div class="work-body"><span class="chip">Social media</span><h3>Projeto 04</h3><span class="year">2025</span></div>
-          </article>
-          <article class="work-card tilt">
-            <div class="media ph c5" data-label="Sua imagem aqui"></div>
-            <div class="work-body"><span class="chip">Branding</span><h3>Projeto 05</h3><span class="year">2025</span></div>
-          </article>
-          <article class="work-card tilt">
-            <div class="media ph c6" data-label="Sua imagem aqui"></div>
-            <div class="work-body"><span class="chip">Embalagem</span><h3>Projeto 06</h3><span class="year">2024</span></div>
+            <div class="media ph c3" data-label="Side Call"><img src="assets/projetos/sidecall.webp" alt="Logo Side Call em branco e laranja, com uma granada no lugar do ícone" width="960" height="720" loading="lazy"></div>
+            <div class="work-body"><span class="chip">Logo</span><h3>Side Call</h3><span class="year">2026</span></div>
           </article>
         </div>
         <div class="wrap carousel-ui">
@@ -219,65 +212,47 @@
         <h2 class="split">Um pouco de tudo</h2>
       </div>
 
-      <!-- Mesma regra: coloque um <img> dentro de cada .media. Passe o mouse para pausar. -->
+      <!-- Para trocar uma imagem, mude o src do <img>. "wide" = bloco largo; "top" / "low" = mostra a parte de cima / de baixo da foto. Passe o mouse para pausar. -->
       <div class="gallery">
         <div class="gallery-row" data-marquee>
-          <div class="media ph c2" data-label="Imagem 01"></div>
-          <div class="media ph c5 wide" data-label="Imagem 02"></div>
-          <div class="media ph c1" data-label="Imagem 03"></div>
-          <div class="media ph c4" data-label="Imagem 04"></div>
-          <div class="media ph c3 wide" data-label="Imagem 05"></div>
+          <div class="media ph c2 top" data-label="Zeri"><img src="assets/projetos/3d/zeri-1.webp" alt="Miniatura pintada da Zeri, de League of Legends" width="676" height="1200" loading="lazy"></div>
+          <div class="media ph c5 wide" data-label="Muky"><img src="assets/projetos/muky-rotulo.webp" alt="Redesign do rótulo do Muky sabor morango" width="1800" height="1135" loading="lazy"></div>
+          <div class="media ph c1 top" data-label="Hornet"><img src="assets/projetos/3d/hornet-1.webp" alt="Miniatura pintada da Hornet, de Hollow Knight: Silksong" width="676" height="1200" loading="lazy"></div>
+          <div class="media ph c4" data-label="MEOWorld"><img src="assets/projetos/meowworld.webp" alt="Tela de cadastro do aplicativo MEOWorld" width="789" height="592" loading="lazy"></div>
+          <div class="media ph c3 wide" data-label="Graphini Cat"><img src="assets/projetos/graphini-cat.webp" alt="Cartões de visita do estudo de logo Graphini Cat" width="1536" height="1953" loading="lazy"></div>
         </div>
         <div class="gallery-row reverse" data-marquee>
-          <div class="media ph c6 wide" data-label="Imagem 06"></div>
-          <div class="media ph c3" data-label="Imagem 07"></div>
-          <div class="media ph c1" data-label="Imagem 08"></div>
-          <div class="media ph c5 wide" data-label="Imagem 09"></div>
-          <div class="media ph c2" data-label="Imagem 10"></div>
+          <div class="media ph c6 wide" data-label="Caixa Funko"><img src="assets/projetos/caixa-funko.webp" alt="Planificação da caixa de um Funko personalizado" width="960" height="720" loading="lazy"></div>
+          <div class="media ph c3 low" data-label="Guts"><img src="assets/projetos/3d/guts-1.webp" alt="Miniatura pintada do Guts, de Berserk" width="676" height="1200" loading="lazy"></div>
+          <div class="media ph c1 low" data-label="Casal Funko"><img src="assets/projetos/3d/casal-1.webp" alt="Funko personalizado de casal, pintado" width="676" height="1200" loading="lazy"></div>
+          <div class="media ph c5 wide" data-label="Side Call"><img src="assets/projetos/sidecall.webp" alt="Logo Side Call" width="960" height="720" loading="lazy"></div>
+          <div class="media ph c2 top" data-label="Thresh"><img src="assets/projetos/3d/thresh-1.webp" alt="Miniatura pintada do Thresh, de League of Legends" width="676" height="1200" loading="lazy"></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== O QUE EU FAÇO (bento com luz que segue o mouse) ===== -->
-    <section id="servicos" class="block dark">
+    <!-- ===== COOPERAÇÕES (empresas e clientes com quem a Fini trabalha) =====
+         Para adicionar outra: copie um <article class="spot coop"> inteiro e troque logo, nome, período, texto, tags e foto. -->
+    <section id="cooperacoes" class="block dark">
       <div class="wrap center">
-        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> O que eu faço</p>
-        <h2 class="split">Design gráfico de ponta a ponta</h2>
+        <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Cooperações</p>
+        <h2 class="split">Com quem eu trabalho</h2>
 
-        <div class="bento">
-          <article class="spot span-2 reveal">
-            <div class="demo swatches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-            <h3>Identidade visual</h3>
-            <p>Logos, paletas e sistemas visuais com personalidade.</p>
-          </article>
-          <article class="spot reveal" style="--d:.08s">
-            <div class="demo peek" aria-hidden="true"><img src="assets/logo.svg" alt=""></div>
-            <h3>Branding</h3>
-            <p>Marcas com rosto e voz.</p>
-          </article>
-          <article class="spot reveal" style="--d:.16s">
-            <div class="demo bounce" aria-hidden="true"><i></i><b></b></div>
-            <h3>Impressos</h3>
-            <p>Cartazes, flyers e cartões.</p>
-          </article>
-          <article class="spot reveal">
-            <div class="demo type" aria-hidden="true">Aa</div>
-            <h3>Tipografia</h3>
-            <p>Letras com intenção.</p>
-          </article>
-          <article class="spot span-2 reveal" style="--d:.08s">
-            <div class="demo tools" aria-hidden="true">
-              <div class="tools-track" data-marquee>
-                <span>Photoshop</span><span>Illustrator</span><span>InDesign</span><span>Affinity</span><span>Figma</span><span>Canva</span>
-              </div>
+        <div class="bento coops">
+          <article class="spot coop reveal">
+            <img class="coop-logo" src="assets/projetos/algodao-doce-logo.webp" alt="Logo da Escola Algodão Doce" width="420" height="420" loading="lazy">
+            <div class="coop-body">
+              <span class="chip">Atualmente</span>
+              <h3>Escola Algodão Doce</h3>
+              <p>Projetos sempre que a escolinha precisa.</p>
+              <ul class="coop-tags">
+                <li>Impressões</li><li>Lembrancinhas</li><li>Edição de vídeos</li><li>Edição de fotos</li>
+              </ul>
             </div>
-            <h3>Ferramentas</h3>
-            <p>Troque pela lista de programas que você usa.</p>
-          </article>
-          <article class="spot reveal" style="--d:.16s">
-            <div class="demo orbit" aria-hidden="true"><svg class="star"><use href="#star"/></svg><i></i><i></i></div>
-            <h3>Social media</h3>
-            <p>Posts que param o scroll.</p>
+            <figure class="coop-shot">
+              <img src="assets/projetos/algodao-doce-copos.webp" alt="Copos personalizados de Dia das Crianças feitos para a Escola Algodão Doce" width="900" height="853" loading="lazy">
+              <figcaption>Lembrancinha de Dia das Crianças</figcaption>
+            </figure>
           </article>
         </div>
       </div>
@@ -294,23 +269,218 @@
           <li class="tl-line" aria-hidden="true"><i></i></li>
           <li class="tl-item">
             <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
-            <div class="tl-card"><span class="chip">2023</span><h3>Onde tudo começou</h3><p>Conte aqui o primeiro passo: um curso, um primeiro desenho, um primeiro cliente.</p></div>
+            <div class="tl-card"><span class="chip">2014 · 11 anos</span><h3>Primeiras edições</h3><p>Capinhas e postagens para páginas do Facebook.</p></div>
           </li>
           <li class="tl-item">
             <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
-            <div class="tl-card"><span class="chip">2024</span><h3>Primeiros projetos</h3><p>Um marco importante da sua jornada entra aqui.</p></div>
+            <div class="tl-card"><span class="chip">2016 · 13 anos</span><h3>Capas e perfis</h3><p>Capas para livros de amigas e edições de perfil para Facebook, Twitter e Tumblr.</p></div>
           </li>
           <li class="tl-item">
             <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
-            <div class="tl-card"><span class="chip">2025</span><h3>Crescendo</h3><p>Novas habilidades, novos clientes, novos desafios.</p></div>
+            <div class="tl-card"><span class="chip">2019 · 16 anos</span><h3>Fase do desenho</h3><p>Ganhei meu primeiro notebook que vira tablet e tentei me aperfeiçoar em desenho. Não eram nada bons, mas davam pro gasto!</p></div>
           </li>
           <li class="tl-item">
             <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
-            <div class="tl-card"><span class="chip">2026</span><h3>Hoje</h3><p>O momento atual e o que vem pela frente.</p></div>
+            <div class="tl-card"><span class="chip">2021 · 18 anos</span><h3>Edições para RPG</h3><p>Capas, fotos, vídeos e edições de personagens para perfis de RPG: acessórios, cor de cabelo, piercings e muito mais.</p></div>
+          </li>
+          <li class="tl-item">
+            <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
+            <div class="tl-card"><span class="chip">2026 · 22 anos</span><h3>Faculdade de Design Gráfico</h3><p>Percebi que era com isso que eu queria trabalhar e comecei a faculdade.</p></div>
+          </li>
+          <li class="tl-item">
+            <svg class="star tl-dot" aria-hidden="true"><use href="#star"/></svg>
+            <div class="tl-card"><span class="chip">2026 · 23 anos</span><h3>Hoje: em busca do estágio</h3><p>Estudando, cuidando da minha mini gráfica e procurando meu primeiro estágio.</p></div>
           </li>
         </ol>
       </div>
     </section>
+
+    <!-- ===== ESTUDOS DE CASO (abrem ao clicar nas pastas de "Trabalhos") =====
+         Para um novo estudo: copie este <dialog>, troque o id e use o mesmo id no data-case da pasta. -->
+    <dialog class="case" id="case-muky" aria-labelledby="case-muky-title">
+      <div class="case-inner">
+        <button class="case-close" type="button" data-case-close aria-label="Fechar estudo de caso">✕</button>
+        <div class="case-head">
+          <p class="eyebrow"><svg class="star"><use href="#star"/></svg> Estudo de caso</p>
+          <h2 id="case-muky-title">Muky Redesign</h2>
+        </div>
+
+        <div class="case-grid">
+          <!-- Painel claro: original x criação -->
+          <div class="case-board">
+            <figure class="case-fig case-fig-old">
+              <figcaption><b>Original</b> Como está no mercado</figcaption>
+              <!-- Setinhas: --x e --y são a posição do ponto na imagem (em %). pin-b = etiqueta embaixo, pin-r = à direita -->
+              <div class="case-shot">
+                <img src="assets/projetos/muky-original.webp" alt="Embalagem original do Muky sabor morango" width="390" height="594" loading="lazy">
+                <span class="pin" style="--x:52%;--y:24%">Topo cheio</span>
+                <span class="pin pin-b" style="--x:50%;--y:57%">Logo pesado</span>
+                <span class="pin pin-b" style="--x:72%;--y:77%">Selo pequeno</span>
+              </div>
+            </figure>
+            <figure class="case-fig">
+              <figcaption><b>Minha criação</b> Novo rótulo</figcaption>
+              <div class="case-shot">
+                <img src="assets/projetos/muky-rotulo.webp" alt="Redesign do rótulo do Muky sabor morango feito pela Fini" width="1800" height="1135" loading="lazy">
+                <span class="pin" style="--x:35%;--y:9%">Logo novo</span>
+                <span class="pin pin-b" style="--x:30%;--y:54%">Ilustração 3D</span>
+                <span class="pin pin-r" style="--x:49%;--y:80%">Selos claros</span>
+                <span class="pin pin-b" style="--x:80%;--y:90%">Verso organizado</span>
+              </div>
+            </figure>
+          </div>
+
+          <!-- Cards de análise: cada <li> é um tópico (pode ter vários por card) -->
+          <div class="case-notes">
+            <article class="case-note">
+              <h3>Processo</h3>
+              <ul>
+                <li>Estudo individual, feito para treinar.</li>
+                <li>Nasceu de uma necessidade real: guardar o refil de Muky numa lata reaproveitada, sem ficar com o rótulo de outra marca.</li>
+                <li>Rótulo pensado para envolver a lata, com frente e tabela nutricional.</li>
+                <li>Criado no Canva, com o logo montado a partir de uma fonte da plataforma.</li>
+              </ul>
+            </article>
+            <article class="case-note">
+              <h3>Análise da original</h3>
+              <ul>
+                <li>Muita informação disputando o topo: nova fórmula, sabor, tradução e selo aparecem juntos.</li>
+                <li>Logo com contorno, sombra e brilho, um estilo que pesa e envelhece a marca.</li>
+                <li>Selo das 10 vitaminas pequeno e inclinado, difícil de ler na prateleira.</li>
+              </ul>
+            </article>
+            <article class="case-note">
+              <h3>O que mudei na minha</h3>
+              <ul>
+                <li>Logo novo em minúsculas e formas arredondadas, maior e mais amigável.</li>
+                <li>Paleta enxuta (rosa, vermelho, creme e branco) em fundo liso, para o produto se destacar.</li>
+                <li>Morangos e splash em ilustração 3D no lugar da foto, com cara mais atual.</li>
+                <li>Benefícios em selos grandes: "Fonte de 10 vitaminas" e "Fonte de ferro".</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="case" id="case-graphini-cat" aria-labelledby="case-graphini-cat-title">
+      <div class="case-inner">
+        <button class="case-close" type="button" data-case-close aria-label="Fechar estudo de caso">✕</button>
+        <div class="case-head">
+          <p class="eyebrow"><svg class="star"><use href="#star"/></svg> Estudo de caso</p>
+          <h2 id="case-graphini-cat-title">Graphini Cat</h2>
+        </div>
+
+        <div class="case-grid">
+          <!-- "solo" = painel com uma imagem só (sem original x criação) -->
+          <div class="case-board solo">
+            <figure class="case-fig">
+              <div class="case-shot">
+                <img src="assets/projetos/graphini-cat.webp" alt="Estudo de identidade visual Graphini: logo com o rosto de uma gata no lugar da letra A, símbolo, patinha, cartões de visita, tipografia e paleta em tons de azul" width="1536" height="1953" loading="lazy">
+                <span class="pin pin-b" style="--x:40%;--y:17%">O "A" virou a Dixie</span>
+                <span class="pin pin-b" style="--x:22%;--y:45%">Manchinhas dela</span>
+              </div>
+            </figure>
+          </div>
+
+          <div class="case-notes">
+            <article class="case-note">
+              <h3>Processo</h3>
+              <ul>
+                <li>Estudo de logo para a Graphini, inspirado na minha gata Dixie.</li>
+                <li>O símbolo são as manchinhas do rosto dela, que entram no lugar da letra A do nome.</li>
+                <li>Testei a marca em cartões de visita, padrão de patinhas, tipografia e paleta.</li>
+              </ul>
+            </article>
+            <article class="case-note">
+              <h3>O que funcionou</h3>
+              <ul>
+                <li>Símbolo pessoal e único: só a Dixie tem essas manchinhas.</li>
+                <li>Paleta enxuta em tons de azul com branco, fácil de aplicar.</li>
+                <li>Fontes arredondadas (Good Matcha e Chewy) deixam a marca simpática.</li>
+              </ul>
+            </article>
+            <article class="case-note">
+              <h3>Por que não segui</h3>
+              <ul>
+                <li>Gata, patinha e azul juntos ficaram lembrando marca de veterinário.</li>
+                <li>O logo não comunicava o que a Graphini faz.</li>
+                <li>Ficou o aprendizado: um símbolo pessoal também precisa conversar com o serviço.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Galeria: cada <button class="gal-tile"> é a pasta de um personagem.
+         data-photos = nomes dos arquivos em assets/projetos/3d/ (sem .webp), separados por vírgula; o primeiro é a capa.
+         Cada foto tem duas versões: nome.webp (grande) e nome-p.webp (miniatura). -->
+    <dialog class="case" id="case-3d" aria-labelledby="case-3d-title">
+      <div class="case-inner">
+        <button class="case-close" type="button" data-case-close aria-label="Fechar galeria">✕</button>
+        <div class="case-head">
+          <p class="eyebrow"><svg class="star"><use href="#star"/></svg> Galeria · 2026</p>
+          <h2 id="case-3d-title">Impressões 3D</h2>
+        </div>
+
+        <div class="gal" data-gallery="assets/projetos/3d/">
+          <div class="gal-grid">
+            <button type="button" class="gal-tile" data-name="Hornet" data-from="Hollow Knight: Silksong" data-photos="hornet-1">
+              <img src="assets/projetos/3d/hornet-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Hornet</b><i>Hollow Knight: Silksong</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Thresh" data-from="League of Legends" data-photos="thresh-1,thresh-2">
+              <img src="assets/projetos/3d/thresh-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Thresh</b><i>League of Legends</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Zeri" data-from="League of Legends" data-photos="zeri-1,zeri-2,zeri-3,zeri-4,zeri-5">
+              <img src="assets/projetos/3d/zeri-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Zeri</b><i>League of Legends</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Guts" data-from="Berserk" data-photos="guts-1">
+              <img src="assets/projetos/3d/guts-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Guts</b><i>Berserk</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Casal Funko" data-from="Funko personalizado" data-photos="casal-1,casal-2,casal-3">
+              <img src="assets/projetos/3d/casal-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Casal Funko</b><i>Funko personalizado</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Kenshin Himura" data-from="Samurai X" data-photos="kenshin-1,kenshin-2,kenshin-3,kenshin-4,kenshin-5">
+              <img src="assets/projetos/3d/kenshin-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Kenshin Himura</b><i>Samurai X</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Ayrton Senna" data-from="Piloto de Fórmula 1" data-photos="senna-1">
+              <img src="assets/projetos/3d/senna-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Ayrton Senna</b><i>Piloto de Fórmula 1</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Maomao" data-from="Diários de uma Apotecária" data-photos="cha-1,cha-2,cha-3,cha-4">
+              <img src="assets/projetos/3d/cha-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Maomao</b><i>Diários de uma Apotecária</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Suriel" data-from="Corte de Espinhos e Rosas" data-photos="encapuzado-1">
+              <img src="assets/projetos/3d/encapuzado-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Suriel</b><i>Corte de Espinhos e Rosas</i></span>
+            </button>
+            <button type="button" class="gal-tile" data-name="Carro" data-from="Miniatura" data-photos="carro-1">
+              <img src="assets/projetos/3d/carro-1-p.webp" alt="" width="360" height="640" loading="lazy">
+              <span class="gal-tag"><b>Carro</b><i>Miniatura</i></span>
+            </button>
+          </div>
+
+          <!-- Tela de um personagem: o JavaScript preenche a foto, o nome e as miniaturas -->
+          <div class="gal-view" hidden>
+            <figure class="gal-stage"><img alt=""></figure>
+            <div class="gal-side">
+              <button class="gal-back" type="button">← Todas as peças</button>
+              <h3></h3>
+              <p class="gal-from"></p>
+              <div class="gal-thumbs"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
   </main>
 
   <!-- ===== CONTATO ===== -->
