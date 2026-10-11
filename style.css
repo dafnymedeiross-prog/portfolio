@@ -1603,3 +1603,36 @@ html:has(.case[open]) { overflow: hidden; }
   .case-board { grid-template-columns: 1fr; padding: 1.1rem; }
   .case-fig-old .case-shot { width: 55%; margin-inline: auto; }
 }
+
+/* ===== Ajustes de celular (ficam no fim para valer por cima do tema) ===== */
+@media (max-width: 640px) {
+  /* menu: cabe inteiro na tela */
+  .nav { top: 0.6rem; gap: 0; padding: 0.25rem; max-width: calc(100vw - 0.75rem); font-size: 0.6rem; }
+  .nav a { padding: 0.5rem 0.45rem; }
+  .nav .nav-logo { padding: 0.15rem; margin-right: 0.15rem; }
+  .nav .nav-logo img { width: 24px; height: 24px; }
+
+  /* hero: logo e assinatura menores, botões lado a lado, tudo na primeira tela */
+  .hero-content { padding: 4.25rem 1rem 6rem; }
+  .logo { width: clamp(110px, min(40vw, 23svh), 180px); }
+  .wordmark { margin-top: 0; }
+  .wordmark img { width: clamp(140px, min(50vw, 27svh), 220px); }
+  .tagline { margin-top: 0.6rem; font-size: 0.85rem; }
+  .hero .actions { flex-wrap: nowrap; gap: 0.6rem; margin-top: 1.1rem; }
+  .hero .btn { padding: 0.65rem 1.05rem; font-size: 0.8rem; white-space: nowrap; }
+
+  /* pastas: no toque não existe hover, então a imagem já aparece saindo da pasta */
+  .folder { aspect-ratio: 1 / 1; }
+  .folder-face { translate: 0 42%; justify-content: flex-start; gap: 0.6rem; padding-top: 15%; }
+  .folder-obj { top: 5%; left: 28%; width: 44%; translate: 0 0; rotate: 4deg; }
+
+  /* linha do tempo: os cards entram de baixo (de lado eles saíam da tela) */
+  .js .tl-card { translate: 0 18px; }
+  .tl-item { padding-left: 3rem; }
+  .tl-card { padding: 1rem 1.1rem; }
+}
+
+@media (max-width: 350px) {
+  .nav { font-size: 0.54rem; }
+  .nav a { padding: 0.5rem 0.35rem; }
+}
