@@ -24,6 +24,15 @@
 
 html { scroll-behavior: smooth; overflow-x: clip; }
 
+/* Barra de rolagem fininha e discreta, nas cores do site (vale também para as janelas dos projetos) */
+* { scrollbar-width: thin; }
+html { scrollbar-color: rgb(0 240 255 / 0.4) transparent; }
+html:hover { scrollbar-color: rgb(0 240 255 / 0.75) transparent; }
+/* Navegadores mais antigos (Safari e Chrome antes da versão 121) */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--hot)); border-radius: 999px; }
+
 body {
   font-family: var(--font-body);
   color: var(--ink);
