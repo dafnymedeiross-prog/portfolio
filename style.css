@@ -116,13 +116,13 @@ ol { list-style: none; }
   border-radius: 999px;
   background: rgba(33, 18, 59, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(14px) saturate(1.4);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
   color: var(--white);
   font-weight: 600;
   font-size: 0.92rem;
   white-space: nowrap;
-  transition: left 0.45s var(--spring), translate 0.45s var(--spring), gap 0.3s;
+  /* sem desfoque de fundo: atrás do menu o fundo anima sem parar, e o desfoque teria que ser refeito a cada quadro */
+  transition: translate 0.5s var(--ease), gap 0.5s var(--ease);
+  will-change: translate;
 }
 .nav-links {
   display: flex;
@@ -130,11 +130,12 @@ ol { list-style: none; }
   gap: inherit;
   max-width: 40rem;
   overflow: hidden;
-  transition: max-width 0.45s ease, opacity 0.3s;
+  transition: max-width 0.5s var(--ease), opacity 0.35s var(--ease);
 }
 
 /* Menu encolhido (depois de rolar): vai para o canto e mostra só a foto */
-.nav.mini { left: 1rem; translate: 0 0; gap: 0; }
+/* --half-w = metade da largura da tela, vinda do script (o menu só desliza, sem recalcular a posição) */
+.nav.mini { translate: calc(1rem - var(--half-w, 50vw)) 0; gap: 0; }
 .nav.mini .nav-links { max-width: 0; opacity: 0; }
 /* No computador, passar o mouse (ou navegar com Tab) abre o menu de novo */
 .nav.mini:hover, .nav.mini:focus-within { gap: 0.25rem; }
@@ -160,6 +161,8 @@ ol { list-style: none; }
 
 /* Fundo animado em WebGL (se o navegador não suportar, fica a cor do fundo) */
 .shader { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+/* Seção fora da tela: animações pausadas para não gastar o computador à toa */
+.offscreen, .offscreen *, .offscreen::before, .offscreen::after { animation-play-state: paused !important; }
 
 .hero-content {
   position: relative;
@@ -497,6 +500,10 @@ h2 {
 .f3 .folder-back { background-image: linear-gradient(120deg, #8ad7ff, #6208b7, #e9bdf0, #9dffd9, #8ad7ff); }
 
 @keyframes sheen { to { background-position: 300% 0; } }
+/* No computador o brilho fica escondido atrás da pasta: só anima quando ela abre */
+@media (hover: hover) {
+  .folder:not(:hover):not(:focus-visible):not(.open) .folder-back { animation-play-state: paused; }
+}
 
 /* O objeto recortado que sobe de trás da pasta */
 .folder-obj {
@@ -1001,7 +1008,7 @@ body::after {
   inset: 0;
   z-index: 80;
   pointer-events: none;
-  background: repeating-linear-gradient(rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 3px);
+  background: repeating-linear-gradient(rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px);
 }
 
 .js .preloader { background: var(--night); }
@@ -1013,7 +1020,7 @@ body::after {
 
 /* menu */
 .nav {
-  background: rgba(5, 1, 13, 0.7);
+  background: rgba(5, 1, 13, 0.86);
   border: 1.5px solid var(--cyan);
   box-shadow: 0 0 16px rgba(0, 240, 255, 0.45), inset 0 0 12px rgba(0, 240, 255, 0.15);
   font-family: var(--font-pixel);
@@ -1328,6 +1335,7 @@ h2:not(.focus) { filter: drop-shadow(0 0 14px rgba(255, 43, 214, 0.6)); }
   box-shadow: 0 0 0 2px rgb(255 255 255 / 0.35), 0 0 24px rgb(0 240 255 / 0.45);
 }
 .coop h3 { margin-top: 0.6rem; font-size: 1.3rem; }
+.coop .coop-motto { margin: 0.15rem 0 0.5rem; color: var(--hot); font-style: italic; font-weight: 600; opacity: 1; text-shadow: 0 0 10px rgb(255 43 214 / 0.55); }
 .coop-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.9rem; list-style: none; }
 .coop-tags li {
   padding: 0.3rem 0.7rem;
@@ -1635,7 +1643,7 @@ html:has(.case[open]) { overflow: hidden; }
   .nav a { padding: 0.5rem 0.45rem; }
   .nav .nav-logo { padding: 0.15rem; margin-right: 0.15rem; }
   .nav .nav-logo img { width: 24px; height: 24px; }
-  .nav.mini { left: 0.6rem; }
+  .nav.mini { translate: calc(0.6rem - var(--half-w, 50vw)) 0; }
   .nav.mini .nav-logo { margin-right: 0; }
 
   /* hero: logo e assinatura menores, botões lado a lado, tudo na primeira tela */

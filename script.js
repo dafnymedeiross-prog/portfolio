@@ -282,16 +282,24 @@
   let ticking = false;
   const onScroll = () => {
     ticking = false;
+    // Primeiro mede tudo, depois altera: misturar os dois força o navegador a recalcular a página várias vezes
     const max = root.scrollHeight - innerHeight;
+    const mark = innerHeight * 0.62;
+    const read = timelines.map(({ el, items }) => ({
+      r: el.getBoundingClientRect(),
+      tops: items.map(it => it.getBoundingClientRect().top)
+    }));
     progress.style.setProperty('--p', max > 0 ? scrollY / max : 0);
     nav.classList.toggle('mini', scrollY > 160);
-    timelines.forEach(({ el, line, items }) => {
-      const r = el.getBoundingClientRect();
-      const mark = innerHeight * 0.62;
+    timelines.forEach(({ line, items }, i) => {
+      const { r, tops } = read[i];
       line.style.setProperty('--p', clamp((mark - r.top) / r.height));
-      items.forEach(it => it.classList.toggle('on', it.getBoundingClientRect().top + 24 < mark));
+      items.forEach((it, j) => it.classList.toggle('on', tops[j] + 24 < mark));
     });
   };
+  const setHalf = () => root.style.setProperty('--half-w', root.clientWidth / 2 + 'px');
+  setHalf();
+  addEventListener('resize', setHalf);
   const requestScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
   addEventListener('scroll', requestScroll, { passive: true });
   addEventListener('resize', requestScroll);
@@ -392,9 +400,14 @@
     uniform vec2 u_res; uniform float u_time; uniform vec2 u_mouse;
     uniform vec3 u_c1, u_c2, u_c3;
     float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    // Ruído feito só de ondas suaves (sem grade de células): placas de vídeo Intel arredondavam
+    // a conta diferente em cada lado da divisa entre células, e aparecia uma emenda reta no fundo
     float noise(vec2 p) {
-      vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
-      return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);
+      p *= 1.8;
+      float v = sin(p.x * 1.7 + sin(p.y * 1.3 + 0.5) * 1.4)
+              + sin(p.y * 1.9 + sin(p.x * 1.1 + 1.3) * 1.4)
+              + sin((p.x + p.y) * 1.3 + sin(p.x * 0.7 - p.y * 0.9) * 1.2);
+      return 0.5 + v / 6.0;
     }
     float fbm(vec2 p) {
       float v = 0.0, a = 0.5;
@@ -409,7 +422,7 @@
       float n = fbm(p * 1.5 + q * 2.0 + vec2(t * 0.6, -t * 0.4));
       vec3 col = mix(u_c1, u_c2, smoothstep(0.3, 0.75, n));
       col = mix(col, u_c3, smoothstep(0.42, 0.8, q.x * n * 2.0) * 0.75);
-      col += (hash(gl_FragCoord.xy + fract(u_time)) - 0.5) * 0.04;
+      col += (hash(gl_FragCoord.xy) - 0.5) * 0.012; // granulado leve e parado (piscando parecia tela travando)
       gl_FragColor = vec4(col, 1.0);
     }`;
   const VERT = 'attribute vec2 a; void main() { gl_Position = vec4(a, 0.0, 1.0); }';
@@ -439,9 +452,10 @@
 
     const state = { visible: false, mouse: [0.5, 0.5], target: [0.5, 0.5] };
     const resize = () => {
-      const dpr = Math.min(devicePixelRatio || 1, 1.5);
-      canvas.width = Math.max(1, canvas.clientWidth * dpr);
-      canvas.height = Math.max(1, canvas.clientHeight * dpr);
+      // Metade da resolução da tela: o gradiente é suave, então fica igual e pesa ~4x menos para o computador
+      const scale = 0.5;
+      canvas.width = Math.max(1, Math.round(canvas.clientWidth * scale));
+      canvas.height = Math.max(1, Math.round(canvas.clientHeight * scale));
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.uniform2f(u('u_res'), canvas.width, canvas.height);
       state.draw(performance.now());
@@ -454,7 +468,11 @@
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
     new ResizeObserver(resize).observe(canvas);
-    new IntersectionObserver(([e]) => { state.visible = e.isIntersecting; }).observe(canvas);
+    // Fora da tela: para de desenhar e pausa as animações da seção (estrelas, chão em grade...)
+    new IntersectionObserver(([e]) => {
+      state.visible = e.isIntersecting;
+      canvas.parentElement.classList.toggle('offscreen', !e.isIntersecting);
+    }).observe(canvas);
     canvas.parentElement.addEventListener('pointermove', e => {
       const r = canvas.getBoundingClientRect();
       state.target = [(e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height];
