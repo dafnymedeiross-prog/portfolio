@@ -47,12 +47,15 @@
   <div class="progress" aria-hidden="true"></div>
   <svg class="star cursor-star" aria-hidden="true"><use href="#star"/></svg>
 
+  <!-- Ao rolar a página, o menu encolhe para só a foto (clique nela = volta ao topo) -->
   <nav class="nav" aria-label="Principal">
-    <a class="nav-logo" href="#topo" aria-label="Início"><img src="assets/favicon.png" alt="" width="28" height="28"></a>
-    <a href="#sobre">Sobre</a>
-    <a href="#projetos">Projetos</a>
-    <a href="#trajetoria">Trajetória</a>
-    <a href="#contato">Contato</a>
+    <a class="nav-logo" href="#topo" aria-label="Voltar ao topo"><img src="assets/favicon.png" alt="" width="28" height="28"></a>
+    <div class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#trajetoria">Trajetória</a>
+      <a href="#contato">Contato</a>
+    </div>
   </nav>
 
   <!-- ===== HERO (fundo em shader WebGL) ===== -->
@@ -246,13 +249,28 @@
               <h3>Escola Algodão Doce</h3>
               <p>Projetos sempre que a escolinha precisa.</p>
               <ul class="coop-tags">
-                <li>Impressões</li><li>Lembrancinhas</li><li>Edição de vídeos</li><li>Edição de fotos</li>
+                <li>Impressões</li><li>Lembrancinhas</li><li>Datas comemorativas</li><li>Edição de vídeos</li><li>Edição de fotos</li>
               </ul>
             </div>
-            <figure class="coop-shot">
-              <img src="assets/projetos/algodao-doce-copos.webp" alt="Copos personalizados de Dia das Crianças feitos para a Escola Algodão Doce" width="900" height="853" loading="lazy">
-              <figcaption>Lembrancinha de Dia das Crianças</figcaption>
-            </figure>
+            <!-- Para adicionar outro projeto da escola: copie um <figure> -->
+            <div class="coop-gallery">
+              <figure class="coop-shot">
+                <img src="assets/projetos/algodao-doce-copos.webp" alt="Copos personalizados de Dia das Crianças feitos para a Escola Algodão Doce" width="900" height="853" loading="lazy">
+                <figcaption>Copos de Dia das Crianças</figcaption>
+              </figure>
+              <figure class="coop-shot">
+                <img src="assets/projetos/algodao-doce-copo-montado.webp" alt="Copo de Dia das Crianças montado com algodão doce e balas, com o painel do Contraturno Escolar Algodão Doce ao fundo" width="900" height="900" loading="lazy">
+                <figcaption>Lembrancinha montada com algodão doce</figcaption>
+              </figure>
+              <figure class="coop-shot">
+                <img src="assets/projetos/algodao-doce-historia-na-lata.webp" alt="Latas e cartões ilustrados do projeto História na Lata, sobre os direitos das crianças" width="900" height="853" loading="lazy">
+                <figcaption>História na Lata: Direitos das Crianças</figcaption>
+              </figure>
+              <figure class="coop-shot">
+                <img src="assets/projetos/algodao-doce-outubro-rosa.webp" alt="Canetas rosas presas em cartões de Outubro Rosa com o passo a passo do autoexame das mamas" width="900" height="900" loading="lazy">
+                <figcaption>Outubro Rosa: caneta com cartão de autoexame</figcaption>
+              </figure>
+            </div>
           </article>
         </div>
       </div>
@@ -490,8 +508,8 @@
       <p class="eyebrow reveal"><svg class="star"><use href="#star"/></svg> Contato</p>
       <h2 class="giant split">Vamos conversar?</h2>
       <div class="actions reveal">
-        <a class="btn btn-solid magnetic" href="https://wa.me/555191410942?text=Oi%2C%20Fini%21%20%E2%9C%A8%20Vi%20seu%20portf%C3%B3lio%20e%20me%20apaixonei%20%F0%9F%92%9C%20Vamos%20criar%20algo%20lindo%20juntos%3F" target="_blank" rel="noopener">WhatsApp</a>
-        <!-- Mensagem pronta do WhatsApp: "Oi, Fini! ✨ Vi seu portfólio e me apaixonei 💜 Vamos criar algo lindo juntos?" (fica depois de ?text= no link acima) -->
+        <a class="btn btn-solid magnetic" href="https://wa.me/555191410942?text=Ol%C3%A1%20Dafny%2C%20me%20interessei%20pelo%20seu%20trabalho%2C%20vamos%20fazer%20algo%20juntos%3F%20%F0%9F%92%9C" target="_blank" rel="noopener">WhatsApp</a>
+        <!-- Mensagem pronta do WhatsApp: "Olá Dafny, me interessei pelo seu trabalho, vamos fazer algo juntos? 💜" (fica depois de ?text= no link acima) -->
         <a class="btn btn-ghost magnetic" href="https://www.linkedin.com/in/dafnymedeiros/" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn btn-ghost magnetic" href="https://www.instagram.com/graph.ini" target="_blank" rel="noopener">Instagram</a>
       </div>

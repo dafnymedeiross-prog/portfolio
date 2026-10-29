@@ -122,7 +122,23 @@ ol { list-style: none; }
   font-weight: 600;
   font-size: 0.92rem;
   white-space: nowrap;
+  transition: left 0.45s var(--spring), translate 0.45s var(--spring), gap 0.3s;
 }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: inherit;
+  max-width: 40rem;
+  overflow: hidden;
+  transition: max-width 0.45s ease, opacity 0.3s;
+}
+
+/* Menu encolhido (depois de rolar): vai para o canto e mostra só a foto */
+.nav.mini { left: 1rem; translate: 0 0; gap: 0; }
+.nav.mini .nav-links { max-width: 0; opacity: 0; }
+/* No computador, passar o mouse (ou navegar com Tab) abre o menu de novo */
+.nav.mini:hover, .nav.mini:focus-within { gap: 0.25rem; }
+.nav.mini:hover .nav-links, .nav.mini:focus-within .nav-links { max-width: 40rem; opacity: 1; }
 
 .nav a { padding: 0.4rem 0.9rem; border-radius: 999px; transition: background 0.25s, color 0.25s; }
 .nav a:hover { background: var(--white); color: var(--hot); }
@@ -154,7 +170,8 @@ ol { list-style: none; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 6rem 1.25rem 6.5rem; /* espaço embaixo para o ícone de rolagem */
+  /* espaço em cima para o menu e embaixo para o ícone de rolagem; encolhe em telas baixas */
+  padding: clamp(4.5rem, 12svh, 6rem) 1.25rem clamp(5rem, 13svh, 6.5rem);
 }
 
 /* Entrada em sequência depois do carregamento */
@@ -170,7 +187,8 @@ ol { list-style: none; }
 .js.loaded .intro:nth-child(4) { transition-delay: 0.9s; }
 
 .logo {
-  width: clamp(180px, 34vw, 320px);
+  /* depende da largura E da altura da tela, para logo + assinatura + botões caberem juntos */
+  width: clamp(110px, min(34vw, 28svh), 320px);
   height: auto;
   filter: drop-shadow(0 6px 0 rgba(58, 20, 102, 0.28));
   animation: bob 4s ease-in-out infinite;
@@ -186,10 +204,10 @@ ol { list-style: none; }
   text-shadow: 0 3px 0 rgba(58, 20, 102, 0.22);
 }
 
-.wordmark img { width: clamp(220px, 44vw, 400px); height: auto; }
+.wordmark img { width: clamp(140px, min(44vw, 34svh), 400px); height: auto; }
 
 .tagline {
-  margin-top: 1.25rem;
+  margin-top: clamp(0.6rem, 2svh, 1.25rem);
   max-width: 32rem;
   font-size: clamp(1rem, 2.4vw, 1.25rem);
   font-weight: 500;
@@ -208,7 +226,7 @@ ol { list-style: none; }
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.9rem;
-  margin-top: 2rem;
+  margin-top: clamp(1rem, 3.5svh, 2rem);
 }
 
 .btn {
@@ -1292,11 +1310,11 @@ h2:not(.focus) { filter: drop-shadow(0 0 14px rgba(255, 43, 214, 0.6)); }
 @keyframes about-spin { to { transform: rotate(360deg); } }
 @keyframes about-blink { 50% { opacity: 0; } }
 
-/* ===== Cooperações: um card largo por empresa (logo | texto | foto) ===== */
+/* ===== Cooperações: um card largo por empresa (logo | texto, galeria embaixo) ===== */
 .coops { grid-template-columns: 1fr; max-width: 62rem; margin-inline: auto; }
 .coop {
   display: grid;
-  grid-template-columns: 9rem minmax(0, 1fr) minmax(0, 17rem);
+  grid-template-columns: 9rem minmax(0, 1fr);
   gap: 1.75rem;
   align-items: center;
   padding: 1.5rem;
@@ -1319,14 +1337,20 @@ h2:not(.focus) { filter: drop-shadow(0 0 14px rgba(255, 43, 214, 0.6)); }
   font-family: var(--font-pixel);
   font-size: 0.66rem;
 }
-.coop-shot img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 1rem; }
+.coop-gallery {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 1rem;
+}
+.coop-shot img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 1rem; }
 .coop-shot figcaption { margin-top: 0.5rem; font-size: 0.8rem; color: rgb(255 255 255 / 0.6); text-align: center; }
 
 @media (max-width: 760px) {
   .coop { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 1.25rem; }
   .coop-logo { width: 7.5rem; height: 7.5rem; }
   .coop-tags { justify-content: center; }
-  .coop-shot { width: 100%; }
+  .coop-gallery { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
 }
 
 /* ===== Estudo de caso (abre ao clicar numa pasta de "Trabalhos") ===== */
@@ -1611,6 +1635,8 @@ html:has(.case[open]) { overflow: hidden; }
   .nav a { padding: 0.5rem 0.45rem; }
   .nav .nav-logo { padding: 0.15rem; margin-right: 0.15rem; }
   .nav .nav-logo img { width: 24px; height: 24px; }
+  .nav.mini { left: 0.6rem; }
+  .nav.mini .nav-logo { margin-right: 0; }
 
   /* hero: logo e assinatura menores, botões lado a lado, tudo na primeira tela */
   .hero-content { padding: 4.25rem 1rem 6rem; }
@@ -1622,6 +1648,7 @@ html:has(.case[open]) { overflow: hidden; }
   .hero .btn { padding: 0.65rem 1.05rem; font-size: 0.8rem; white-space: nowrap; }
 
   /* pastas: no toque não existe hover, então a imagem já aparece saindo da pasta */
+  .folders { grid-template-columns: 1fr; max-width: 26rem; }
   .folder { aspect-ratio: 1 / 1; }
   .folder-face { translate: 0 42%; justify-content: flex-start; gap: 0.6rem; padding-top: 15%; }
   .folder-obj { top: 5%; left: 28%; width: 44%; translate: 0 0; rotate: 4deg; }
@@ -1633,6 +1660,18 @@ html:has(.case[open]) { overflow: hidden; }
 }
 
 @media (max-width: 350px) {
+  .folder { aspect-ratio: 5 / 6; } /* um pouco mais alta para o texto da pasta caber */
   .nav { font-size: 0.54rem; }
   .nav a { padding: 0.5rem 0.35rem; }
+}
+
+/* Telas bem baixas (celular deitado, janela pequena): entrada compacta para os botões aparecerem */
+@media (max-height: 520px) {
+  .hero-content { padding: 4.5rem 1rem 3rem; }
+  .logo { width: clamp(56px, 18svh, 140px); }
+  .wordmark img { width: clamp(110px, 28svh, 200px); }
+  .tagline { margin-top: 0.4rem; font-size: 0.8rem; }
+  .hero .actions { margin-top: 0.8rem; }
+  .hero .btn { padding: 0.55rem 1rem; font-size: 0.8rem; }
+  .scroll-hint { display: none; }
 }

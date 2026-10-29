@@ -277,12 +277,14 @@
 
   /* ---------- Linha do tempo + barra de progresso (uma leitura de rolagem por frame) ---------- */
   const progress = $('.progress');
+  const nav = $('.nav');
   const timelines = $$('[data-timeline]').map(el => ({ el, line: $('.tl-line', el), items: $$('.tl-item', el) }));
   let ticking = false;
   const onScroll = () => {
     ticking = false;
     const max = root.scrollHeight - innerHeight;
     progress.style.setProperty('--p', max > 0 ? scrollY / max : 0);
+    nav.classList.toggle('mini', scrollY > 160);
     timelines.forEach(({ el, line, items }) => {
       const r = el.getBoundingClientRect();
       const mark = innerHeight * 0.62;
